@@ -21,8 +21,6 @@ print(c, d, e)                          실수형 변수 3개 출력하는 예�
 print(f)                                문자열 1개 출력하는 예제
 '''
 
-import sys
-
 
 '''
       아래의 구문은 input.txt 를 read only 형식으로 연 후,
@@ -37,16 +35,43 @@ import sys
 '''
 #sys.stdin = open("input.txt", "r")
 
-T = int(input())
+import sys
+T = int(input())   # 노선 수
 # 여러개의 테스트 케이스가 주어지므로, 각각을 처리합니다.
 for test_case in range(1, T + 1):
     K, N, M = map(int, input().split(' '))
-    elec_supply = [int(x) for x in input().split(' ')]
-    bus_loc = 0 # 현재 버스의 위치
-    
-    
+    # K:최대 이동 가능한 정류장 수, N:종점, M:충전기 설치 수
+    elec_supply = [int(x) for x in input().split(' ')]  # 충전기 위치
+    bus_loc = 0  # 현재 버스의 위치
+    sup_num = 0  # 버스 충전소 충전 카운트
+
+    while True:
+        bus_loc += K
+        if bus_loc >= N:
+            break
+        k=0
+        while True:
+            if bus_loc < elec_supply[k]:
+                break
+            
+            else:
+                k+=1
+        temp = elec_supply[:k]
+      #   temp = [x for x in elec_supply if bus_loc >= x]
+        if len(temp) == 1:
+            bus_loc = temp[-1]
+            sup_num += 1
+            del(elec_supply[0])
+        elif len(temp):
+            bus_loc = temp[-1]
+            sup_num += 1
+            del(elec_supply[:len(temp)])
+        else:
+            sup_num = 0
+            break
+    print(f'#{test_case} {sup_num}')
     # ///////////////////////////////////////////////////////////////////////////////////
-    
+
     '''
 
         이 부분에 여러분의 알고리즘 구현이 들어갑니다.
