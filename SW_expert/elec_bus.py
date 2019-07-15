@@ -35,7 +35,7 @@ print(f)                                문자열 1개 출력하는 예제
 '''
 #sys.stdin = open("input.txt", "r")
 
-import sys
+# import sys
 T = int(input())   # 노선 수
 # 여러개의 테스트 케이스가 주어지므로, 각각을 처리합니다.
 for test_case in range(1, T + 1):
@@ -50,12 +50,15 @@ for test_case in range(1, T + 1):
         if bus_loc >= N:
             break
         k=0
-        while True:
-            if bus_loc < elec_supply[k]:
-                break
-            
-            else:
-                k+=1
+        if len(elec_supply) - 1:
+            while True:
+                if bus_loc < elec_supply[k]:
+                    break
+                
+                else:
+                    k+=1
+        else:
+            k=1
         temp = elec_supply[:k]
       #   temp = [x for x in elec_supply if bus_loc >= x]
         if len(temp) == 1:
